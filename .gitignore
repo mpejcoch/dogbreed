@@ -1,0 +1,4 @@
+hound_model_vgg.pt
+.vscode/
+__pycache__/
+.DS_Store
