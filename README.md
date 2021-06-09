@@ -24,9 +24,13 @@ There are some breeds that have more samples, though all of the breeds are well 
 
 ### Model
 
-The model used is based on a VGG16 network (https://arxiv.org/abs/1409.1556 by Karen Simonyan, Andrew Zisserman). The last layer of the model is replaced with a fully connected linear layer of size customized to the dataset with 133 classes.
+The model used is based on a VGG16 network (https://arxiv.org/abs/1409.1556 by Karen Simonyan, Andrew Zisserman). The last layer of the model is replaced with a fully connected linear layer of size customized to the dataset with 133 classes. An initial estimated learning rate of 0.001 turned out to work fine, so I have not experimented with other values.
 
 ![Image from https://towardsdatascience.com/step-by-step-vgg16-implementation-in-keras-for-beginners-a833c686ae6c](vgg16.png)
+
+The validation is done against a separate dataset to avoid overfitting. A third independent subset of test images is used to calculate the final accuracy.
+
+![TrainValid](trainvalid.png)
 
 The final model has been trained for 50 epochs achieving 87% test accuracy.
 
