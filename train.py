@@ -19,6 +19,7 @@ class DogBreedModelTrainer:
         self,
         n_threads=12,
         model_file_out="hound_model_vgg.pt",
+        training_stats_out="stats.csv",
         input_data_basedir=".",
         image_size=224,
         linear_layer_size=500,
@@ -34,6 +35,7 @@ class DogBreedModelTrainer:
         self.n_threads = n_threads
         self.n_epochs = n_epochs
         self.model_file_out = model_file_out
+        self.training_stats_out = training_stats_out
         self.image_size = image_size
         self.linear_layer_size = linear_layer_size
         self.input_data_basedir = input_data_basedir
@@ -166,6 +168,8 @@ class DogBreedModelTrainer:
 
             # print training/validation statistics
             print("Epoch: {} \tTraining Loss: {:.6f} \tValidation Loss: {:.6f}".format(epoch, train_loss, valid_loss))
+            with open(self.training_stats_out, "a") as stats_file:
+                stats_file.write("{}, {:.6f}, {:6f}\n".format(epoch, train_loss, valid_loss))
 
             if valid_loss < valid_loss_min:
                 print("Validation loss decreased {:f} -> {:f}".format(valid_loss_min, valid_loss))
@@ -194,6 +198,14 @@ if __name__ == "__main__":
         dest="model_file_out",
     )
     parser.add_argument(
+        "-s",
+        "--training-stats-out",
+        default="training_stats.csv",
+        help="Provide path to where the training stats should be saved",
+        type=str,
+        dest="training_stats_out",
+    )
+    parser.add_argument(
         "-e",
         "--epochs",
         default=12,
@@ -206,6 +218,7 @@ if __name__ == "__main__":
         input_data_basedir=args.input_data_basedir,
         model_file_out=args.model_file_out,
         n_epochs=args.n_epochs,
+        training_stats_out=args.training_stats_out,
     )
     dbmt.train()
     dbmt.test()
