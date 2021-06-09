@@ -32,7 +32,7 @@ The validation is done against a separate dataset to avoid overfitting. A third 
 
 ![TrainValid](trainvalid.png)
 
-The final model has been trained for 50 epochs achieving 87% test accuracy.
+The final model has been trained for 50 epochs achieving 87% test accuracy. After 10th epoch, the validation score stabilizes, which suggests the model is robust. The training loss continues to decrease, overfitting on the training set, without compromising the effect on the validation set.
 
 For the model to be robust, a set of distorting transformation operations is applied to the training images for each iteration. Such as random rotation or flipping.
 
